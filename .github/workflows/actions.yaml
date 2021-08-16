@@ -1,9 +1,8 @@
 name: Super Heroes App
 
-jobs:
+on: [push, pull_request]
 
-  on:
-    push:
+jobs:
 
   testing:
 
