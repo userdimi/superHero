@@ -1,10 +1,13 @@
 name: Super Heroes App
 
 jobs:
+
+  on:
+    push:
+
   testing:
 
     name: Lint Check and Testing
-
     runs-on: ubuntu-latest
 
     steps:
