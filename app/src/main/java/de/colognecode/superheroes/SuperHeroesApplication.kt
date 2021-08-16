@@ -1,7 +1,7 @@
 package de.colognecode.superheroes
 
 import android.app.Application
-import de.colognecode.superheroes.di.AppModule.appModule
+import de.colognecode.superheroes.di.appModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
