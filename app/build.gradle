@@ -52,6 +52,14 @@ dependencies {
     def timber_version = '5.0.1'
     implementation "com.jakewharton.timber:timber:$timber_version"
 
+    // Networking
+    def retrofit_version = '2.9.0'
+    implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
+    def ok_http_version = "4.7.2"
+    implementation "com.squareup.okhttp3:logging-interceptor:$ok_http_version"
+
+
     // Unit Tests
     testImplementation 'junit:junit:4.13.2'
 
