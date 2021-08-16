@@ -48,6 +48,10 @@ dependencies {
     def koin_version = '3.1.2'
     implementation "io.insert-koin:koin-android:$koin_version"
 
+    // Logging
+    def timber_version = '5.0.1'
+    implementation "com.jakewharton.timber:timber:$timber_version"
+
     // Unit Tests
     testImplementation 'junit:junit:4.13.2'
 
