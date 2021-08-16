@@ -19,10 +19,10 @@ jobs:
           java-version: 11
 
       - name: Rund Android Linter
-        run: ./gradlew lintStagingDebug
+        run: ./gradlew lintDebug
 
       - name: Run Unit Tests
-        run: ./gradlew testStagingDebugUnitTest
+        run: ./gradlew testDebugUnitTest
 
       - name: Assamble Debug APK
-        run: ./gradlew assembleStagingDebug
+        run: ./gradlew assembleDebug
