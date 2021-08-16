@@ -1,9 +1,8 @@
 package de.colognecode.superheroes.di
 
-import de.colognecode.superheroes.overview.SuperHeroesOverviewViewModel
-import de.colognecode.superheroes.repository.Repository
-import de.colognecode.superheroes.repository.network.SuperHeroesService
-import okhttp3.Interceptor
+import de.colognecode.superheroes.presentation.overview.SuperHeroesOverviewViewModel
+import de.colognecode.superheroes.data.network.SuperHeroesService
+import de.colognecode.superheroes.usecases.FetchSuperHeroesUseCase
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -14,12 +13,11 @@ import retrofit2.converter.gson.GsonConverterFactory
 @JvmField
 val appModule = module {
 
-    viewModel { SuperHeroesOverviewViewModel() }
+    viewModel { SuperHeroesOverviewViewModel(get()) }
     single { provideRetrofit(get()) }
     factory { provideOkHttpClient() }
     factory { providesSuperHeroesService(get()) }
-    factory { Repository(get()) }
-
+    factory { FetchSuperHeroesUseCase(get()) }
 }
 
 fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit {

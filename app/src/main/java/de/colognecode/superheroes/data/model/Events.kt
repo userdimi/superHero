@@ -1,11 +1,11 @@
-package de.colognecode.superheroes.repository.model
+package de.colognecode.superheroes.data.model
 
 import com.google.gson.annotations.SerializedName
 
 /**
- * 	A resource list of series in which this character appears.
+ * A resource list of events in which this character appears.
  */
-data class Series(
+data class Events(
 
     @field:SerializedName("collectionURI")
     val collectionURI: String? = null,
@@ -19,3 +19,4 @@ data class Series(
     @field:SerializedName("items")
     val items: List<ItemsItem?>? = null
 )
+
