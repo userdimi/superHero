@@ -231,3 +231,6 @@ Network Trash Folder
 Temporary Items
 .apdisk
 
+# Credentials Files
+apikey.properties
+

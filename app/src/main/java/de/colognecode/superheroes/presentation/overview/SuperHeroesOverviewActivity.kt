@@ -1,4 +1,4 @@
-package de.colognecode.superheroes.overview
+package de.colognecode.superheroes.presentation.overview
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
