@@ -17,7 +17,7 @@ import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-@JvmField
+
 val apiModule = module {
 
     fun provideSuperHeroesApi(retrofit: Retrofit): SuperHeroesApi {
@@ -36,7 +36,7 @@ val apiModule = module {
     factory { provideApiQuery() }
 }
 
-@JvmField
+
 val networkModule = module {
 
     fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit {
@@ -60,7 +60,7 @@ val networkModule = module {
     single { provideOkHttpClient() }
 }
 
-@JvmField
+
 val databaseModule = module {
 
     fun provideAppDatabase(application: Application): AppDatabase {
@@ -75,23 +75,25 @@ val databaseModule = module {
     }
 
     single { provideAppDatabase(androidApplication()) }
+
     single { providesSuperHeroesDao(get()) }
 }
 
-@JvmField
+
 val repositoryModule = module {
 
     fun provideRepository(
         superHeroesApi: SuperHeroesApi,
-        apiKeyQuery: ApiKeyQuery
+        apiKeyQuery: ApiKeyQuery,
+        superHeroDao: SuperHeroDao
     ): Repository {
-        return Repository(superHeroesApi, apiKeyQuery)
+        return Repository(superHeroesApi, apiKeyQuery, superHeroDao)
     }
 
-    single { provideRepository(get(), get()) }
+    single { provideRepository(get(), get(), get()) }
 }
 
-@JvmField
+
 val viewModelModule = module {
     viewModel { SuperHeroesOverviewViewModel(get()) }
 }

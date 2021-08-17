@@ -1,5 +1,6 @@
 package de.colognecode.superheroes.repository.database
 
+import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
@@ -10,8 +11,8 @@ import de.colognecode.superheroes.repository.database.entities.SuperHero
 interface SuperHeroDao {
 
     @Query("SELECT * FROM superhero")
-    suspend fun getAllSuperHeroes(): List<SuperHero>
+    fun getAllSuperHeroes(): LiveData<List<SuperHero>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertAllSuperHeroes(vararg superHero: SuperHero)
+    suspend fun addSuperHero(superHero: SuperHero)
 }

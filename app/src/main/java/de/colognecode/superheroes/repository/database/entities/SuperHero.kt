@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey
 
 @Entity
 data class SuperHero(
-    @PrimaryKey val id: Int,
-    @ColumnInfo(name = "name") val name: String,
-    @ColumnInfo(name = "thumbnail") val thumbnail: String
+    @PrimaryKey val id: String,
+    @ColumnInfo(name = "name") val name: String?,
+    @ColumnInfo(name = "thumbnail") val thumbnail: String?
 )

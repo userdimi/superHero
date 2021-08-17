@@ -23,7 +23,7 @@ class SuperHeroesOverviewFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.fetchSuperHeroes()
+        viewModel.getSuperHeroesFromRepository()
     }
 
     override fun onDestroyView() {
