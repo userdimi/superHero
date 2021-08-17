@@ -1,4 +1,4 @@
-package de.colognecode.superheroes.data.model
+package de.colognecode.superheroes.repository.model
 
 import com.google.gson.annotations.SerializedName
 

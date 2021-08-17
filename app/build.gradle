@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
+    id 'kotlin-kapt'
 }
 
 android {
@@ -29,6 +30,10 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+    buildFeatures {
+        viewBinding true
+        dataBinding true
+    }
 }
 
 dependencies {
@@ -36,6 +41,10 @@ dependencies {
     // Android Core
     implementation 'androidx.core:core-ktx:1.6.0'
     implementation 'androidx.appcompat:appcompat:1.3.1'
+
+    // Android Fragment
+    def fragment_version = "1.3.6"
+    implementation "androidx.fragment:fragment-ktx:$fragment_version"
 
     // Layout
     implementation 'com.google.android.material:material:1.4.0'

@@ -1,11 +1,11 @@
-package de.colognecode.superheroes.data.model
+package de.colognecode.superheroes.repository.model
 
 import com.google.gson.annotations.SerializedName
 
 /**
- * A resource list of stories in which this character appears.
+ * A resource list containing comics which feature this character.
  */
-data class Stories(
+data class Comics(
 
     @field:SerializedName("collectionURI")
     val collectionURI: String? = null,
