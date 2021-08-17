@@ -1,7 +1,7 @@
 package de.colognecode.superheroes
 
 import android.app.Application
-import de.colognecode.superheroes.di.appModule
+import de.colognecode.superheroes.di.*
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
@@ -24,8 +24,13 @@ class SuperHeroesApplication : Application() {
         startKoin {
             androidLogger()
             androidContext(this@SuperHeroesApplication)
-            modules(appModule)
+            modules(
+                apiModule,
+                networkModule,
+                databaseModule,
+                repositoryModule,
+                viewModelModule
+            )
         }
     }
-
 }

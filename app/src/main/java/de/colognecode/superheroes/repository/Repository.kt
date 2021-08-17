@@ -3,12 +3,12 @@ package de.colognecode.superheroes.repository
 import androidx.lifecycle.MutableLiveData
 import de.colognecode.superheroes.repository.model.SuperHeroesResponse
 import de.colognecode.superheroes.repository.network.ApiKeyQuery
-import de.colognecode.superheroes.repository.network.SuperHeroesService
+import de.colognecode.superheroes.repository.network.SuperHeroesApi
 import timber.log.Timber
 
 
 class Repository(
-    private val superHeroesService: SuperHeroesService,
+    private val superHeroesApi: SuperHeroesApi,
     private val apiKeyQuery: ApiKeyQuery
 ) {
 
@@ -16,7 +16,7 @@ class Repository(
 
     suspend fun fetchSuperHeroesFromApi(): MutableLiveData<SuperHeroesResponse?>? {
         try {
-            val superHeroesResponse = this.superHeroesService.fetchHeroes(
+            val superHeroesResponse = this.superHeroesApi.fetchHeroes(
                 timeStamp = this.apiKeyQuery.timestamp,
                 publicApiKey = this.apiKeyQuery.publicApiKey,
                 apiKeyHash = this.apiKeyQuery.apiKeyHash
