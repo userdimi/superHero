@@ -26,6 +26,7 @@ class SuperHeroesOverviewFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        viewModel.getSuperHeroesFromRepository()
         viewModel.superHeroes.observe(viewLifecycleOwner, {
             it?.let {
                 this.superHeroesAdapter.submitList(it)
@@ -36,7 +37,6 @@ class SuperHeroesOverviewFragment : Fragment() {
                 GridLayoutManager(requireContext(), 3, GridLayoutManager.VERTICAL, false)
             adapter = superHeroesAdapter
         }
-        viewModel.getSuperHeroesFromRepository()
     }
 
     override fun onDestroyView() {
