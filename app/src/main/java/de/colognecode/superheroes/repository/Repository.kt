@@ -3,6 +3,7 @@ package de.colognecode.superheroes.repository
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import de.colognecode.superheroes.repository.database.SuperHeroDao
+import de.colognecode.superheroes.repository.database.entities.Comic
 import de.colognecode.superheroes.repository.database.entities.SuperHero
 import de.colognecode.superheroes.repository.model.SuperHeroesResponse
 import de.colognecode.superheroes.repository.network.ApiKeyQuery
@@ -27,15 +28,27 @@ class Repository(
                 apiKeyHash = this.apiKeyQuery.apiKeyHash
             )
             if (superHeroesResponse.isSuccessful) {
-                superHeroesResponse.body()?.data?.results?.let {
-                    for (resultItem in it) {
-                        resultItem?.id?.let {
+                superHeroesResponse.body()?.data?.results?.let { heroes ->
+                    for (hero in heroes) {
+                        hero?.id?.let {
                             val superHero = SuperHero(
-                                id = resultItem.id,
-                                name = resultItem.name,
-                                thumbnail = resultItem.thumbnail?.path,
+                                id = hero.id,
+                                name = hero.name,
+                                thumbnail = hero.thumbnail?.path,
+                                description = hero.description,
+                                copyright = superHeroesResponse.body()?.copyright ?: ""
                             )
                             this.superHeroDao.addSuperHero(superHero)
+                            /*hero.comics?.items?.let { comics ->
+                                for (comicItem in comics) {
+                                    val comic = Comic(
+                                        comicName = comicItem?.name,
+                                        resourceURI = comicItem?.resourceURI,
+                                        superHero = superHero.name
+                                    )
+                                    this.superHeroDao.addComic(comic)
+                                }
+                            }*/
                         }
                     }
                 }

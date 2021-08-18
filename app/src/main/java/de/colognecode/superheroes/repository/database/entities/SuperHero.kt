@@ -8,5 +8,7 @@ import androidx.room.PrimaryKey
 data class SuperHero(
     @PrimaryKey val id: String,
     @ColumnInfo(name = "name") val name: String?,
-    @ColumnInfo(name = "thumbnail") val thumbnail: String?
+    @ColumnInfo(name = "thumbnail") val thumbnail: String?,
+    @ColumnInfo(name = "description") val description: String?,
+    @ColumnInfo(name = "copyright") val copyright: String
 )
