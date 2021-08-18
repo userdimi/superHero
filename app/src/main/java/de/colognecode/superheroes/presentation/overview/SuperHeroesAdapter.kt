@@ -2,8 +2,10 @@ package de.colognecode.superheroes.presentation.overview
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import de.colognecode.superheroes.R
 import de.colognecode.superheroes.databinding.ItemSuperHeroBinding
 import de.colognecode.superheroes.repository.database.entities.SuperHero
 
@@ -17,6 +19,10 @@ class SuperHeroesAdapter :
         fun bind(item: SuperHero) {
             this.binding.superHero = item
             this.binding.executePendingBindings()
+            this.itemView.setOnClickListener {
+                it.findNavController()
+                    .navigate(R.id.action_superHeroesOverviewFragment_to_superHeroDetailFragment)
+            }
         }
 
         companion object {
