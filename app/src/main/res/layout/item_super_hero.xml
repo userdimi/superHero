@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="superHero"
+            type="de.colognecode.superheroes.repository.database.entities.SuperHero" />
+    </data>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+
+        <TextView
+            android:id="@+id/text_view_super_hero_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:superHeroName="@{superHero}"
+            tools:text="Hulk"
+            android:background="@drawable/shape_text_view"
+            android:textAlignment="center"
+            android:textSize="20sp"
+            />
+
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/image_view_super_hero_thumbnail"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:scaleType="fitXY"
+            tools:src="@drawable/ic_marvel_logo_placeholder"
+            android:layout_weight="1"
+            app:superHeroThumbnail="@{superHero}" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</layout>
