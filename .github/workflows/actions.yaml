@@ -29,8 +29,8 @@ jobs:
       - name: Acces API Public Key
         run: |
           touch apikey.properties
-          echo PUBLIC_API_KEY=${{ secrets.PUBLIC_API_KEY }} >> apikey.properties
-          echo PRIVATE_API_KEY=${{ secrets.PRIVATE_API_KEY }} >> apikey.properties
+          echo PUBLIC_API_KEY=${{ secrets.PUBLIC_API_KEY }} | base64 --decode >> apikey.properties
+          echo PRIVATE_API_KEY=${{ secrets.PRIVATE_API_KEY }} | base64 --decode >> apikey.properties
           cat apikey.properties
 
       - name: Set up JDK 11
