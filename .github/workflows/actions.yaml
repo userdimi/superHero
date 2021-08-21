@@ -2,6 +2,10 @@ name: Super Heroes App
 
 on: [ push, pull_request ]
 
+defaults:
+  run:
+    shell: bash
+
 jobs:
 
   build:
@@ -13,13 +17,11 @@ jobs:
         uses: actions/checkout@v1
 
       - name: Acces API Public Key
-      - shell: bash
         env:
           PUBLIC_API_KEY_SECRET: ${{ secrets.PUBLIC_API_KEY }}
         run: echo =\"PUBLIC_API_KEY\" > ./apikey.properties
 
       - name: Acces API Private Key
-      - shell: bash
         env:
           PRIVATE_API_KEY_SECRET: ${{ secrets.PRIVATE_API_KEY }}
         run: echo =\"PRIVATE_API_KEY\" > ./apikey.properties
