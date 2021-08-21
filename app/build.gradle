@@ -8,8 +8,8 @@ def apikeyPropertiesFile = rootProject.file("apikey.properties")
 def apikeyProperties = new Properties()
 try {
     apikeyProperties.load(new FileInputStream(apikeyPropertiesFile))
-    println(apikeyProperties['PRIVATE_API_KEY'])
-    println(apikeyProperties['PUBLIC_API_KEY'])
+    println("Private Key value" + apikeyProperties['PRIVATE_API_KEY'])
+    println("Public Key value" + apikeyProperties['PUBLIC_API_KEY'])
 } catch(Exception exception) {
     println("Error by loading properties file" + exception.message)
 }
