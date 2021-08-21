@@ -6,7 +6,13 @@ plugins {
 
 def apikeyPropertiesFile = rootProject.file("apikey.properties")
 def apikeyProperties = new Properties()
-apikeyProperties.load(new FileInputStream(apikeyPropertiesFile))
+try {
+    apikeyProperties.load(new FileInputStream(apikeyPropertiesFile))
+    println(apikeyProperties['PRIVATE_API_KEY'])
+    println(apikeyProperties['PUBLIC_API_KEY'])
+} catch(Exception exception) {
+    println("Error by loading properties file" + exception.message)
+}
 
 android {
     compileSdk 30
