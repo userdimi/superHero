@@ -16,6 +16,13 @@ jobs:
       - name: Clone Repo
         uses: actions/checkout@v1
 
+      - name: Cache Gradle packages
+        uses: actions/cache@v2
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+
       - name: Acces API Public Key
         env:
           PUBLIC_API_KEY: ${{ secrets.PUBLIC_API_KEY }}
