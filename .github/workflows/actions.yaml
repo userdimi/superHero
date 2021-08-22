@@ -29,8 +29,9 @@ jobs:
 
       - name: Access API keys
         run: |
-          echo PUBLIC_API_KEY=\"$PUBLIC_API_KEY\" > ./apikey.properties
-          echo PRIVATE_API_KEY=\"$PRIVATE_API_KEY\" > ./apikey.properties
+          touch ./apikey.properties
+          echo PUBLIC_API_KEY=\"$PUBLIC_API_KEY\" >> ./apikey.properties
+          echo PRIVATE_API_KEY=\"$PRIVATE_API_KEY\" >> ./apikey.properties
           cat ./apikey.properties
 
       - name: Set up JDK 11
