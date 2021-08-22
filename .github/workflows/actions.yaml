@@ -30,9 +30,9 @@ jobs:
       - name: Acces API Public Key
         run: |
           touch apikey.properties
-          echo PUBLIC_API_KEY=$PUBLIC_API_KEY | base64 -d >> apikey.properties
-          echo PRIVATE_API_KEY=$PRIVATE_API_KEY | base64 -d >> apikey.properties
-          cat apikey.properties
+          echo $PUBLIC_API_KEY | base64 --decode --ignore-garbage
+
+
 
       - name: Set up JDK 11
         uses: actions/setup-java@v1
