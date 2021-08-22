@@ -4,14 +4,18 @@ plugins {
     id 'kotlin-kapt'
 }
 
-def apikeyPropertiesFile = rootProject.file("apikey.properties")
-def apikeyProperties = new Properties()
-try {
-    apikeyProperties.load(new FileInputStream(apikeyPropertiesFile))
-    println("Private Key value" + apikeyProperties['PRIVATE_API_KEY'])
-    println("Public Key value" + apikeyProperties['PUBLIC_API_KEY'])
-} catch(Exception exception) {
-    println("Error by loading properties file" + exception.message)
+String getPrivateApiKey() {
+    def propFile = rootProject.file("./apikey.properties")
+    def properties = new Properties()
+    properties.load(new FileInputStream(propFile))
+    return properties['PRIVATE_API_KEY']
+}
+
+String getPublicApiKey() {
+    def propFile = rootProject.file("./apikey.properties")
+    def properties = new Properties()
+    properties.load(new FileInputStream(propFile))
+    return properties['PUBLIC_API_KEY']
 }
 
 android {
@@ -26,8 +30,8 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
-        buildConfigField("String", "PRIVATE_API_KEY", apikeyProperties['PRIVATE_API_KEY'])
-        buildConfigField("String", "PUBLIC_API_KEY", apikeyProperties['PUBLIC_API_KEY'])
+        buildConfigField("String", "PRIVATE_API_KEY", getPrivateApiKey())
+        buildConfigField("String", "PUBLIC_API_KEY", getPublicApiKey())
 
         javaCompileOptions {
             annotationProcessorOptions {
