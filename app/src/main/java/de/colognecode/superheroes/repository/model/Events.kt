@@ -19,4 +19,3 @@ data class Events(
     @field:SerializedName("items")
     val items: List<ItemsItem?>? = null
 )
-

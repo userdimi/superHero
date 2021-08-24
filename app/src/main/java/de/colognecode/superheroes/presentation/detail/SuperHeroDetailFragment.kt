@@ -1,11 +1,11 @@
 package de.colognecode.superheroes.presentation.detail
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import de.colognecode.superheroes.R
 
 class SuperHeroDetailFragment : Fragment() {
@@ -17,7 +17,8 @@ class SuperHeroDetailFragment : Fragment() {
     private lateinit var viewModel: SuperHeroDetailViewModel
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         return inflater.inflate(R.layout.fragment_super_hero_detail, container, false)
@@ -28,5 +29,4 @@ class SuperHeroDetailFragment : Fragment() {
         viewModel = ViewModelProvider(this).get(SuperHeroDetailViewModel::class.java)
         // TODO: Use the ViewModel
     }
-
 }

@@ -3,7 +3,6 @@ package de.colognecode.superheroes
 import android.app.Application
 import coil.Coil
 import coil.ImageLoader
-import coil.ImageLoaderFactory
 import coil.util.CoilUtils
 import coil.util.DebugLogger
 import de.colognecode.superheroes.di.*

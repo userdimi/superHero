@@ -1,15 +1,11 @@
 package de.colognecode.superheroes.repository
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import de.colognecode.superheroes.repository.database.SuperHeroDao
 import de.colognecode.superheroes.repository.database.entities.SuperHero
-import de.colognecode.superheroes.repository.model.SuperHeroesResponse
 import de.colognecode.superheroes.repository.network.ApiKeyQuery
 import de.colognecode.superheroes.repository.network.SuperHeroesApi
 import de.colognecode.superheroes.repository.network.SuperHeroesFetchException
-import timber.log.Timber
-
 
 class Repository(
     private val superHeroesApi: SuperHeroesApi,
