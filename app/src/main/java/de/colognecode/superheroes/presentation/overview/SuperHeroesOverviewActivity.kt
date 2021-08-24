@@ -1,7 +1,7 @@
 package de.colognecode.superheroes.presentation.overview
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import de.colognecode.superheroes.R
 
 class SuperHeroesOverviewActivity : AppCompatActivity() {

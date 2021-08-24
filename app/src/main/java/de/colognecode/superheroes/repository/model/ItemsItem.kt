@@ -11,4 +11,3 @@ data class ItemsItem(
     @field:SerializedName("resourceURI")
     val resourceURI: String? = null
 )
-

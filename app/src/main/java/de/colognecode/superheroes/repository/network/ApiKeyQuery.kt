@@ -3,7 +3,6 @@ package de.colognecode.superheroes.repository.network
 import java.math.BigInteger
 import java.security.MessageDigest
 
-
 data class ApiKeyQuery(
     val timestamp: String,
     private val privateApiKey: String,

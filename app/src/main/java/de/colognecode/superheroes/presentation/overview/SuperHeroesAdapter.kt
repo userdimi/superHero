@@ -9,7 +9,6 @@ import de.colognecode.superheroes.R
 import de.colognecode.superheroes.databinding.ItemSuperHeroBinding
 import de.colognecode.superheroes.repository.database.entities.SuperHero
 
-
 class SuperHeroesAdapter :
     ListAdapter<SuperHero, SuperHeroesAdapter.ViewHolder>(SuperHeroesDiffCallback()) {
 
