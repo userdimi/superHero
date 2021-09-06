@@ -5,13 +5,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
+import dagger.hilt.android.AndroidEntryPoint
 import de.colognecode.superheroes.databinding.FragmentSuperHeroesOverviewBinding
-import org.koin.androidx.viewmodel.ext.android.viewModel
 
+@AndroidEntryPoint
 class SuperHeroesOverviewFragment : Fragment() {
 
-    private val viewModel: SuperHeroesOverviewViewModel by viewModel()
+    private val viewModel: SuperHeroesOverviewViewModel by viewModels()
     private var binding: FragmentSuperHeroesOverviewBinding? = null
     private val superHeroesAdapter by lazy { SuperHeroesAdapter() }
 
