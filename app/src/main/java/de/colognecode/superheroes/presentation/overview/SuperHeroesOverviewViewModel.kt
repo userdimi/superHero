@@ -4,13 +4,17 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import dagger.hilt.android.lifecycle.HiltViewModel
 import de.colognecode.superheroes.repository.Repository
 import de.colognecode.superheroes.repository.database.entities.SuperHero
 import de.colognecode.superheroes.repository.network.SuperHeroesFetchException
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class SuperHeroesOverviewViewModel(private val repository: Repository) : ViewModel() {
+@HiltViewModel
+class SuperHeroesOverviewViewModel @Inject constructor(private val repository: Repository) :
+    ViewModel() {
 
     val superHeroes: LiveData<List<SuperHero>> = repository.superHeroes
 
