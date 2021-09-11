@@ -61,7 +61,9 @@ class RepositoryTest {
         every { this@RepositoryTest.mockResultsItem.name } returns "Hulk"
         every { this@RepositoryTest.mockResultsItem.thumbnail?.path } returns "http://foo.bar"
         every { this@RepositoryTest.mockResponse.isSuccessful } returns true
-        every { this@RepositoryTest.mockResponse.body()?.data?.results } returns listOf(this.mockResultsItem)
+        every {
+            this@RepositoryTest.mockResponse.body()?.data?.results
+        } returns listOf(this.mockResultsItem)
 
         // act
         runBlockingTest {
@@ -73,7 +75,7 @@ class RepositoryTest {
     }
 
     @Test
-    fun `Verify SuperHeroesFetchException is thrown when an general exception has been thrown by fetching super heroes`() {
+    fun `Verify SuperHeroesFetchException is thrown with correct message`() {
         // arrange
         coEvery {
             this@RepositoryTest.mockSuperHeroesApi.fetchHeroes(any(), any(), any())
