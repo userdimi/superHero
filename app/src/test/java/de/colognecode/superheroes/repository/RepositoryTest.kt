@@ -1,88 +1,87 @@
 package de.colognecode.superheroes.repository
 
-import androidx.lifecycle.LiveData
-import de.colognecode.superheroes.di.apiModule
-import de.colognecode.superheroes.di.databaseModule
 import de.colognecode.superheroes.repository.database.SuperHeroDao
-import de.colognecode.superheroes.repository.database.entities.SuperHero
 import de.colognecode.superheroes.repository.model.ResultsItem
 import de.colognecode.superheroes.repository.model.SuperHeroesResponse
 import de.colognecode.superheroes.repository.network.ApiKeyQuery
 import de.colognecode.superheroes.repository.network.SuperHeroesApi
+import de.colognecode.superheroes.repository.network.SuperHeroesFetchException
 import io.mockk.*
+import io.mockk.impl.annotations.InjectMockKs
+import io.mockk.impl.annotations.MockK
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runBlockingTest
+import org.junit.Before
 import org.junit.Test
-import org.junit.jupiter.api.BeforeEach
-import org.junit.jupiter.api.extension.RegisterExtension
-import org.koin.test.KoinTest
-import org.koin.test.inject
-import org.koin.test.junit5.KoinTestExtension
-import org.koin.test.junit5.mock.MockProviderExtension
-import org.koin.test.mock.declareMock
 import retrofit2.Response
+import kotlin.test.assertFailsWith
 
-internal class RepositoryTest : KoinTest {
+@ExperimentalCoroutinesApi
+class RepositoryTest {
 
-    private val mockSuperHeroesApi: SuperHeroesApi by inject()
-    private val mockSuperHeroDao: SuperHeroDao by inject()
-    private val mockApiKeyQuery: ApiKeyQuery by inject()
+    @MockK
+    private lateinit var mockSuperHeroesApi: SuperHeroesApi
 
-    @JvmField
-    @RegisterExtension
-    val koinTestExtension = KoinTestExtension.create {
-        modules(
-            apiModule,
-            databaseModule
-        )
+    @MockK
+    private lateinit var mockSuperHeroDao: SuperHeroDao
+
+    @MockK
+    private lateinit var mockApiKeyQuery: ApiKeyQuery
+
+    @MockK
+    private lateinit var mockResultsItem: ResultsItem
+
+    @MockK
+    private lateinit var mockResponse: Response<SuperHeroesResponse>
+
+    @MockK
+    private lateinit var mockSuperHeroesResponse: SuperHeroesResponse
+
+    @InjectMockKs
+    private lateinit var repository: Repository
+
+    @Before
+    fun setUp() {
+        MockKAnnotations.init(this, relaxed = true)
     }
 
-    @JvmField
-    @RegisterExtension
-    val mockProvider = MockProviderExtension.create { clazz ->
-        mockkClass(clazz)
-    }
-
-    @BeforeEach
-    fun initMocks() {
-        val mockResultItem = declareMock<ResultsItem> {
-            every { id } returns "12345"
-            every { name } returns "Hulk"
-            every { thumbnail?.path } returns "https://foo.bar.de"
-        }
-        val mockResultsItemList = listOf(mockResultItem)
-        val mockResponse = declareMock<Response<SuperHeroesResponse>> {
-            every { isSuccessful } returns true
-            every { body()?.data?.results } returns mockResultsItemList
-        }
-        val mockApiKeyQuery = mockk<ApiKeyQuery>()
-        val mockLiveData = mockk<LiveData<List<SuperHero>>>()
-        val mockSuperHeroDao = declareMock<SuperHeroDao> {
-            every { getAllSuperHeroes() } returns mockLiveData
-        }
-        val mockSuperHeroApi = declareMock<SuperHeroesApi> {
-            coEvery {
-                fetchHeroes(
-                    mockApiKeyQuery.timestamp,
-                    mockApiKeyQuery.publicApiKey,
-                    mockApiKeyQuery.apiKeyHash
-                )
-            } returns mockResponse
-        }
-    }
-
-    @ExperimentalCoroutinesApi
     @Test
-    fun `Verify that super heroes are saved into the database on success fetch`() {
+    fun `Verify super heroes are loaded from the database`() {
+        // assert
+        verify { this@RepositoryTest.mockSuperHeroDao.getAllSuperHeroes() }
+    }
+
+    @Test
+    fun `Verify super heroes are saved in the database on success`() {
+        // arrange
+        coEvery {
+            this@RepositoryTest.mockSuperHeroesApi.fetchHeroes(any(), any(), any())
+        } returns mockResponse
+        every { this@RepositoryTest.mockResultsItem.id } returns "12345"
+        every { this@RepositoryTest.mockResultsItem.name } returns "Hulk"
+        every { this@RepositoryTest.mockResultsItem.thumbnail?.path } returns "http://foo.bar"
+        every { this@RepositoryTest.mockResponse.isSuccessful } returns true
+        every { this@RepositoryTest.mockResponse.body()?.data?.results } returns listOf(this.mockResultsItem)
+
         // act
         runBlockingTest {
-            Repository(
-                mockSuperHeroesApi,
-                mockApiKeyQuery,
-                mockSuperHeroDao
-            ).fetchSuperHeroesFromApi()
+            this@RepositoryTest.repository.fetchSuperHeroesFromApi()
         }
+
         // assert
-        coVerify { mockSuperHeroDao.addSuperHero(any()) }
+        coVerify { this@RepositoryTest.mockSuperHeroDao.addSuperHero(any()) }
+    }
+
+    @Test
+    fun `Verify SuperHeroesFetchException is thrown when an general exception has been thrown by fetching super heroes`() {
+        // arrange
+        coEvery {
+            this@RepositoryTest.mockSuperHeroesApi.fetchHeroes(any(), any(), any())
+        } throws Exception()
+        assertFailsWith<SuperHeroesFetchException>(message = Repository.errorMessage) {
+            runBlockingTest {
+                this@RepositoryTest.repository.fetchSuperHeroesFromApi()
+            }
+        }
     }
 }

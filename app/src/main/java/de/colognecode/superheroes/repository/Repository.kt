@@ -6,8 +6,9 @@ import de.colognecode.superheroes.repository.database.entities.SuperHero
 import de.colognecode.superheroes.repository.network.ApiKeyQuery
 import de.colognecode.superheroes.repository.network.SuperHeroesApi
 import de.colognecode.superheroes.repository.network.SuperHeroesFetchException
+import javax.inject.Inject
 
-class Repository(
+class Repository @Inject constructor(
     private val superHeroesApi: SuperHeroesApi,
     private val apiKeyQuery: ApiKeyQuery,
     private val superHeroDao: SuperHeroDao
@@ -38,9 +39,13 @@ class Repository(
             }
         } catch (exception: Throwable) {
             throw SuperHeroesFetchException(
-                "Error by fetching super heroes from the api",
+                errorMessage,
                 Throwable()
             )
         }
+    }
+
+    companion object {
+        const val errorMessage = "Error by fetching super heroes from the api"
     }
 }

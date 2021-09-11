@@ -5,17 +5,14 @@ import coil.Coil
 import coil.ImageLoader
 import coil.util.CoilUtils
 import coil.util.DebugLogger
-import de.colognecode.superheroes.di.*
+import dagger.hilt.android.HiltAndroidApp
 import okhttp3.OkHttpClient
-import org.koin.android.ext.koin.androidContext
-import org.koin.android.ext.koin.androidLogger
-import org.koin.core.context.startKoin
 import timber.log.Timber
 
+@HiltAndroidApp
 class SuperHeroesApplication : Application() {
     override fun onCreate() {
         super.onCreate()
-        this.startKoin()
         this.initTimber()
         val imageLoader = ImageLoader.Builder(this)
             .logger(DebugLogger())
@@ -31,20 +28,6 @@ class SuperHeroesApplication : Application() {
     private fun initTimber() {
         if (BuildConfig.DEBUG) {
             Timber.plant(Timber.DebugTree())
-        }
-    }
-
-    private fun startKoin() {
-        startKoin {
-            androidLogger()
-            androidContext(this@SuperHeroesApplication)
-            modules(
-                apiModule,
-                networkModule,
-                databaseModule,
-                repositoryModule,
-                viewModelModule
-            )
         }
     }
 }
