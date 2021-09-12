@@ -48,7 +48,8 @@ class SuperHeroesOverviewViewModelTest {
     @Test
     fun `Verify that heroes are fetching from repository`() {
         // act
-        this@SuperHeroesOverviewViewModelTest.superHeroesOverviewViewModel.getSuperHeroesFromRepository()
+        this@SuperHeroesOverviewViewModelTest
+            .superHeroesOverviewViewModel.getSuperHeroesFromRepository()
         // assert
         coVerify { this@SuperHeroesOverviewViewModelTest.mockRepository.fetchSuperHeroesFromApi() }
     }
